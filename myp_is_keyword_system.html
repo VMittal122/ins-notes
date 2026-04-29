@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MYP I&S — Advanced Exam Keyword System</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #FAF9F6;
+      --bg2: #F2F0EB;
+      --bg3: #E8E5DC;
+      --surface: #FFFFFF;
+      --border: rgba(60, 50, 30, 0.12);
+      --border2: rgba(60, 50, 30, 0.22);
+      --text: #1C1A14;
+      --text2: #5A5346;
+      --text3: #8A8070;
+      --accent: #C4622A;
+      --accent-bg: #FDF0E8;
+      --accent-border: rgba(196, 98, 42, 0.25);
+      --blue: #2563A8;
+      --blue-bg: #EEF4FB;
+      --blue-border: rgba(37, 99, 168, 0.22);
+      --green: #1E6B3E;
+      --green-bg: #EAF4ED;
+      --green-border: rgba(30, 107, 62, 0.22);
+      --gold: #8A6A00;
+      --gold-bg: #FBF5E0;
+      --gold-border: rgba(138, 106, 0, 0.22);
+      --red: #A0290E;
+      --red-bg: #FBEAE5;
+      --red-border: rgba(160, 41, 14, 0.22);
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border2);
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .header-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .header-sub {
+      font-size: 14px;
+      color: var(--text2);
+      max-width: 560px;
+    }
+
+    .header-deco {
+      position: absolute;
+      right: 0;
+      top: 48px;
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      color: rgba(196, 98, 42, 0.07);
+      user-select: none;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* ── SEARCH ── */
+    .search-wrap {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3);
+      font-size: 15px;
+      pointer-events: none;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 11px 16px 11px 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+
+    #searchInput:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-bg), var(--shadow);
+    }
+
+    #searchInput::placeholder {
+      color: var(--text3);
+    }
+
+    /* ── TABS ── */
+    .tabs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 32px;
+    }
+
+    .tab-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 7px 15px;
+      border: 1px solid var(--border2);
+      border-radius: 99px;
+      background: var(--surface);
+      color: var(--text2);
+      cursor: pointer;
+      transition: all 0.15s;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--accent-border);
+      color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(196, 98, 42, 0.3);
+    }
+
+    /* ── UNIT PANEL ── */
+    .unit-panel {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .unit-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+      background: var(--gold-bg);
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ── KEYWORD CARDS ── */
+    .keyword-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px;
+    }
+
+    .keyword-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .keyword-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 99px 0 0 99px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .keyword-card:hover {
+      border-color: var(--accent-border);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .keyword-card:hover::before {
+      opacity: 1;
+    }
+
+    .kw-term {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .kw-def {
+      font-size: 12.5px;
+      color: var(--text2);
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .kw-link {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-sm);
+      padding: 2px 8px;
+    }
+
+    /* ── VOCAB PILLS ── */
+    .vocab-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .vocab-pill {
+      font-size: 12.5px;
+      font-weight: 400;
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid var(--green-border);
+      transition: all 0.12s;
+      cursor: default;
+    }
+
+    .vocab-pill:hover {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    /* ── VERB TABLE ── */
+    .verb-table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .verb-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .verb-table th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text3);
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .verb-table td {
+      padding: 10px 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .verb-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .verb-table tbody tr:hover td {
+      background: var(--bg);
+    }
+
+    .verb-old {
+      color: var(--text3);
+      text-decoration: line-through;
+      font-size: 13px;
+    }
+
+    .verb-new {
+      color: var(--green);
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+    }
+
+    .verb-when {
+      font-size: 12.5px;
+      color: var(--text2);
+    }
+
+    /* ── PHRASE BANK ── */
+    .phrase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .phrase-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.65;
+      box-shadow: var(--shadow);
+      transition: border-left-color 0.15s, color 0.15s;
+      cursor: default;
+    }
+
+    .phrase-item:hover {
+      border-left-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* ── CHAIN ITEMS ── */
+    .chain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chain-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.15s;
+    }
+
+    .chain-item:hover {
+      border-color: var(--border2);
+    }
+
+    .chain-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--blue);
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chain-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .chain-flow {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .arrow {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 500;
+      margin: 0 3px;
+    }
+
+    /* ── HIDDEN / FADED ── */
+    .kw-hidden {
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .keyword-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-deco {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrap">
+
+    <header class="site-header">
+      <div class="header-eyebrow">MYP Individuals &amp; Societies · Advanced Exam</div>
+      <h1 class="header-title">Keyword System</h1>
+      <p class="header-sub">Band‑8 vocabulary, case study triggers, and analytical chains across all units. Select a
+        unit to begin.</p>
+      <div class="header-deco" aria-hidden="true">I&amp;S</div>
+    </header>
+
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search keywords, case studies, phrases…"
+        oninput="filterContent(this.value)" autocomplete="off" />
+    </div>
+
+    <div class="tabs-row" id="tabs">
+      <button class="tab-btn active" onclick="showUnit('eco',this)">Economics</button>
+      <button class="tab-btn" onclick="showUnit('hdi',this)">HDI &amp; Development</button>
+      <button class="tab-btn" onclick="showUnit('trade',this)">Trade &amp; Aid</button>
+      <button class="tab-btn" onclick="showUnit('resource',this)">Resource Geopolitics</button>
+      <button class="tab-btn" onclick="showUnit('peace',this)">Peace &amp; Conflict</button>
+      <button class="tab-btn" onclick="showUnit('rights',this)">Rights &amp; Protest</button>
+      <button class="tab-btn" onclick="showUnit('pop',this)">Population &amp; Migration</button>
+      <button class="tab-btn" onclick="showUnit('urban',this)">Urbanization</button>
+      <button class="tab-btn" onclick="showUnit('supra',this)">Supranational Orgs</button>
+      <button class="tab-btn" onclick="showUnit('indrev',this)">Industrial Revolutions</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       ECONOMICS
+  ══════════════════════════════════════════════ -->
+    <div class="unit-panel active" id="unit-eco">
+
+      <div class="section">
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <span class="section-title">Core trigger keywords</span>
+        </div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Cape Town Day Zero</div>
+            <div class="kw-def">Point at which municipal water taps were to be shut off — ultimate scarcity
+              manifestation</div>
+            <div class="kw-link">→ Economic Problem / Scarcity</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Tesla Gigafactory</div>
+            <div class="kw-def">Illustrates all 4 factors of production operating simultaneously at industrial scale
+            </div>
+            <div class="kw-link">→ Factors of Production</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Lithium battery sourcing</div>
+            <div class="kw-def">Tesla's land factor — extraction of rare earth minerals from global supply chains</div>
+            <div class="kw-link">→ Land as FOP / Tesla case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">WWII US production shift</div>
+            <div class="kw-def">Economy moved from consumer goods (cars) to capital goods (tanks) on the PPC</div>
+            <div class="kw-link">→ PPC / Basic Economic Choices</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">India budget allocation</div>
+            <div class="kw-def">Real-world 3-question framework: defence vs healthcare, automation vs labour, rich vs
+              poor</div>
+            <div class="kw-link">→ What/How/For Whom to Produce</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Apple M-series chip</div>
+            <div class="kw-def">Vertical integration reducing scarcity risk during semiconductor shortage — PPC frontier
+            </div>
+            <div class="kw-link">→ Scarcity Management / Apple Shark Tank</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Foxconn/TSMC partnership</div>
+            <div class="kw-def">Producer interdependence; Apple as producer leveraging global supply chain efficiency
+            </div>
+            <div class="kw-link">→ Firms as Economic Agents</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">RBI monetary policy</div>
+            <div class="kw-def">Reserve Bank of India setting interest rates — central bank regulating circular flow
+            </div>
+            <div class="kw-link">→ Financial Institutions as Agents</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Spain GDP contraction 11%</div>
+            <div class="kw-def">Worst economic shrinkage since 1930s, driven by tourism collapse (80% drop in arrivals)
+            </div>
+            <div class="kw-link">→ Circular Flow / COVID impact</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Deliveroo +7.6% / cycling +27%</div>
+            <div class="kw-def">Counter-cyclical growth during recession — industries thriving during downturns</div>
+            <div class="kw-link">→ Positive effects of recession</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">NextGenerationEU fund</div>
+            <div class="kw-def">EU injection post-COVID; government spending entering circular flow</div>
+            <div class="kw-link">→ Injections (EU case)</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Singapore NPS score 72</div>
+            <div class="kw-def">Net Promoter Score reflecting brand loyalty enabling premium pricing strategy</div>
+            <div class="kw-link">→ Apple competitive landscape</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Japan aging dependency ratio</div>
+            <div class="kw-def">Shrinking workforce reduces tax revenue; households shift to saving over consumption
+            </div>
+            <div class="kw-link">→ Households as Economic Agents</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">China price controls on food</div>
+            <div class="kw-def">Government regulating prices to prevent inflation — command element in mixed economy
+            </div>
+            <div class="kw-link">→ Government as Economic Agent</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">2008 mortgage crisis</div>
+            <div class="kw-def">Micro: bad loans → Macro: systemic collapse requiring government bailout</div>
+            <div class="kw-link">→ Micro vs Macro link</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Singapore free economy rank</div>
+            <div class="kw-def">Ranked among freest since 1995; no capital gains tax, tax benefits first 3 years</div>
+            <div class="kw-link">→ Free Market Economy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Greece debt crisis IMF</div>
+            <div class="kw-def">Impossible trinity — fixed rate, free capital flow, independent monetary policy</div>
+            <div class="kw-link">→ Degree of Economic Freedom</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">India 1991 LPG reforms</div>
+            <div class="kw-def">Liberalization, Privatization, Globalization — shift from command to market-oriented
+            </div>
+            <div class="kw-link">→ Economic Transition</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Uber platform economy</div>
+            <div class="kw-def">P2P model — owns platform not cars; monetizes idle assets without owning them</div>
+            <div class="kw-link">→ Sharing Economy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Apple $62bn liquidity</div>
+            <div class="kw-def">Cash reserves enabling fintech (Apple Pay) and vertical integration without external
+              debt</div>
+            <div class="kw-link">→ Financial institutions / PPC frontier</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">allocative efficiency</span><span class="vocab-pill">productive capacity</span><span
+            class="vocab-pill">ceteris paribus assumption</span><span class="vocab-pill">marginal utility
+            diminishment</span><span class="vocab-pill">negative multiplier effect</span><span
+            class="vocab-pill">counter-cyclical industry</span><span class="vocab-pill">factor immobility</span><span
+            class="vocab-pill">vertical integration</span><span class="vocab-pill">resource curse paradox</span><span
+            class="vocab-pill">leakage-injection equilibrium</span><span class="vocab-pill">price signal
+            mechanism</span><span class="vocab-pill">profit-maximizing incentive structure</span><span
+            class="vocab-pill">fiscal-monetary policy tension</span><span class="vocab-pill">consumer
+            sovereignty</span><span class="vocab-pill">productive possibility frontier expansion</span><span
+            class="vocab-pill">opportunity cost calculus</span><span class="vocab-pill">inter-agent
+            interdependence</span><span class="vocab-pill">externality internalization</span><span
+            class="vocab-pill">merit good underproduction</span><span class="vocab-pill">domestic output
+            displacement</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><span class="section-num">03</span><span class="section-title">Analytical power
+            verbs</span></div>
+        <div class="verb-table-wrap">
+          <table class="verb-table">
+            <thead>
+              <tr>
+                <th>Instead of</th>
+                <th>Use</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="verb-old">show</span></td>
+                <td><span class="verb-new">substantiate / corroborate</span></td>
+                <td class="verb-when">Backing a claim with case study evidence</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">increase</span></td>
+                <td><span class="verb-new">amplify / exacerbate / catalyse</span></td>
+                <td class="verb-when">Describing accelerating economic pressures</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">cause</span></td>
+                <td><span class="verb-new">precipitate / engender / perpetuate</span></td>
+                <td class="verb-when">Establishing causal chains in evaluation</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">affect</span></td>
+                <td><span class="verb-new">distort / reshape / undermine</span></td>
+                <td class="verb-when">Evaluating policy/agent impact</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">help</span></td>
+                <td><span class="verb-new">mitigate / incentivize / stimulate</span></td>
+                <td class="verb-when">Explaining government interventions</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">reduce</span></td>
+                <td><span class="verb-new">attenuate / curtail / erode</span></td>
+                <td class="verb-when">Describing leakages or market contractions</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">shows</span></td>
+                <td><span class="verb-new">epitomizes / exemplifies / illustrates</span></td>
+                <td class="verb-when">Linking case to concept</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">use</span></td>
+                <td><span class="verb-new">deploy / leverage / harness</span></td>
+                <td class="verb-when">Describing agent strategies</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"The interaction between economic agents is not linear but cyclical — decisions by
+            households ripple through firms, governments, and financial institutions in a continuous feedback loop."
+          </div>
+          <div class="phrase-item">"Spain's 11% GDP contraction substantiates the negative multiplier effect, whereby
+            reduced consumer spending triggered successive rounds of firm retrenchment and income decline."</div>
+          <div class="phrase-item">"The opportunity cost framework reveals that every resource allocation decision
+            carries an implicit trade-off — a dimension frequently overlooked in purely GDP-centric analysis."</div>
+          <div class="phrase-item">"Apple's vertical integration strategy epitomizes how firms operating near their
+            production possibility frontier can simultaneously manage scarcity risk and sustain competitive advantage."
+          </div>
+          <div class="phrase-item">"Counter-cyclical sectors such as Deliveroo during the COVID-19 recession demonstrate
+            that recessions do not uniformly harm all economic agents — a nuance often absent from simplistic
+            evaluations."</div>
+          <div class="phrase-item">"The circular flow model, while analytically useful, presents an idealised
+            equilibrium that obscures the structural asymmetries between economic agents in real-world economies."</div>
+          <div class="phrase-item">"Government intervention in Singapore's economy exemplifies the impossible trinity —
+            full economic freedom, price stability, and sovereign monetary control cannot coexist simultaneously."</div>
+          <div class="phrase-item">"From a critical perspective, the free market's reliance on consumer sovereignty
+            assumes perfect information — a condition rarely met in practice, particularly among low-income households."
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Scarcity → Policy → Outcome</div>
+            <div class="chain-flow">Cape Town drought<span class="arrow">→</span>Water scarcity (limited resource +
+              unlimited want)<span class="arrow">→</span>Forced household choice<span class="arrow">→</span>Government
+              rationing (price mechanism override)<span class="arrow">→</span>Allocative inefficiency debate</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Agent → Interaction → Circular Flow</div>
+            <div class="chain-flow">Apple employs 164K workers<span class="arrow">→</span>Wages paid (household
+              income)<span class="arrow">→</span>Consumer spending on Apple products<span class="arrow">→</span>Revenue
+              → R&amp;D investment (injection)<span class="arrow">→</span>PPC frontier shifts outward</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">COVID Shock → Multiplier → GDP</div>
+            <div class="chain-flow">COVID lockdowns<span class="arrow">→</span>Tourism collapse (Spain -80%
+              arrivals)<span class="arrow">→</span>Firm revenue loss → wage cuts<span class="arrow">→</span>Household
+              income falls<span class="arrow">→</span>Reduced consumption<span class="arrow">→</span>Negative multiplier
+              → GDP -11%</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Free Market → Inequality → Policy Gap</div>
+            <div class="chain-flow">Singapore free market structure<span class="arrow">→</span>Profit-driven firm
+              behaviour<span class="arrow">→</span>Low-income household vulnerability (COVID)<span
+                class="arrow">→</span>Limited government subsidies<span class="arrow">→</span>Rising dependency
+              ratio<span class="arrow">→</span>Market failure in social protection</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Scarcity → Choice → Opportunity Cost</div>
+            <div class="chain-flow">Student with ₹1000 (limited resource)<span class="arrow">→</span>Movie (₹700) vs
+              café (₹800)<span class="arrow">→</span>Chooses movie → opportunity cost = ₹800 (café forgone)<span
+                class="arrow">→</span>Illustrates rational decision-making under scarcity</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Government Intervention → Circular Flow Injection</div>
+            <div class="chain-flow">Tax collected from households/firms<span class="arrow">→</span>Redistributed as
+              government spending (injection)<span class="arrow">→</span>Public goods provisioned<span
+                class="arrow">→</span>Household welfare improved → labour productivity up<span
+                class="arrow">→</span>Circular flow strengthened</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Import → Leakage → Exchange Rate Pressure</div>
+            <div class="chain-flow">COVID resource deficit<span class="arrow">→</span>Dependence on imports
+              increases<span class="arrow">→</span>Foreign currency outflow (leakage)<span
+                class="arrow">→</span>Domestic currency dilution<span class="arrow">→</span>Exchange rate weakens<span
+                class="arrow">→</span>Inflationary pressure amplifies</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Innovation → PPC Shift → Growth</div>
+            <div class="chain-flow">Apple M-series chip design<span class="arrow">→</span>Reduces reliance on TSMC
+              (external)<span class="arrow">→</span>Cost efficiency improves<span class="arrow">→</span>Production
+              possibility expands<span class="arrow">→</span>Semiconductor scarcity risk attenuated<span
+                class="arrow">→</span>Output frontier shifts outward</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ HDI ══ -->
+    <div class="unit-panel" id="unit-hdi">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Norway HDI 0.95+</div>
+            <div class="kw-def">Benchmark high HDI nation — advanced healthcare, strong education, equitable GNI per
+              capita</div>
+            <div class="kw-link">→ High HDI comparison</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Niger HDI ~0.40</div>
+            <div class="kw-def">Benchmark low HDI nation — low life expectancy, poor enrolment, agriculture-dependent
+              economy</div>
+            <div class="kw-link">→ Low HDI comparison</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">China Gini 0.47</div>
+            <div class="kw-def">High inequality masked by strong GDP — urban/rural income gap 2.5x</div>
+            <div class="kw-link">→ GDP vs Development / China case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">China CO₂ 30% global share</div>
+            <div class="kw-def">Environmental externality of GDP growth not captured by GDP metric</div>
+            <div class="kw-link">→ GDP limitations / China</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">India HDI rank 132/193</div>
+            <div class="kw-def">High GDP growth (6-7%) coexisting with low human development outcomes</div>
+            <div class="kw-link">→ Growth vs Development / India</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Nigeria oil 80% forex earnings</div>
+            <div class="kw-def">Resource curse — oil wealth concentrated among elite, 40%+ below poverty line</div>
+            <div class="kw-link">→ Nigeria / Resource-led growth failure</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Nigeria HDI rank 161</div>
+            <div class="kw-def">Africa's largest oil producer with some of continent's worst human development outcomes
+            </div>
+            <div class="kw-link">→ GDP as incomplete measure</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Bhutan GNH framework</div>
+            <div class="kw-def">Gross National Happiness — prioritizes wellbeing, equity, sustainability over GDP</div>
+            <div class="kw-link">→ Alternative development models</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Bhutan carbon negative</div>
+            <div class="kw-def">72% forested land; demonstrates sustainability without GDP maximization</div>
+            <div class="kw-link">→ Bhutan development case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Cuba literacy 99.8%</div>
+            <div class="kw-def">Strongest social outcomes (education, healthcare) despite low GDP per capita ($9,500)
+            </div>
+            <div class="kw-link">→ Cuba / social policy without GDP growth</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Cuba infant mortality 4/1000</div>
+            <div class="kw-def">Better than USA — proves that strong public spending outperforms market delivery</div>
+            <div class="kw-link">→ Cuba case / GDP inadequacy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Finland happiness rank #1 (8 years)</div>
+            <div class="kw-def">High institutional trust, universal healthcare, strong social capital = top WHR score
+            </div>
+            <div class="kw-link">→ Happiness Index / Finland</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Afghanistan WHR last place</div>
+            <div class="kw-def">Conflict, corruption, low freedom, poor healthcare → bottom of happiness rankings</div>
+            <div class="kw-link">→ Happiness Index / failure state</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Cantril Ladder 0-10</div>
+            <div class="kw-def">Subjective life evaluation scale used in World Happiness Report methodology</div>
+            <div class="kw-link">→ Happiness Index measurement</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Costa Rica military abolition 1949</div>
+            <div class="kw-def">Redirected defense funds to social services — achieved development without high GDP
+            </div>
+            <div class="kw-link">→ Development without growth</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">India multidimensional poverty 16%</div>
+            <div class="kw-def">GDP of $3.7T coexists with 16% in multidimensional poverty — growth-development gap
+            </div>
+            <div class="kw-link">→ India / GDP inadequacy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Niger Delta oil spills</div>
+            <div class="kw-def">Negative externality destroying livelihoods — GDP rises while human welfare deteriorates
+            </div>
+            <div class="kw-link">→ Nigeria / environmental externality</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Purchasing Power Parity adjustment</div>
+            <div class="kw-def">PPP corrects GNI per capita for cost-of-living differences — enables cross-country
+              comparison</div>
+            <div class="kw-link">→ HDI methodology / standard of living</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">multidimensional poverty index</span><span class="vocab-pill">resource curse
+            paradox</span><span class="vocab-pill">non-market productive activity</span><span
+            class="vocab-pill">distributional equity gap</span><span class="vocab-pill">subjective wellbeing
+            measurement</span><span class="vocab-pill">social capital accumulation</span><span class="vocab-pill">per
+            capita income masking effect</span><span class="vocab-pill">growth-development decoupling</span><span
+            class="vocab-pill">institutional quality index</span><span class="vocab-pill">ecological sustainability
+            threshold</span><span class="vocab-pill">composite development indicator</span><span
+            class="vocab-pill">diminishing marginal utility of income</span><span class="vocab-pill">human capital
+            formation</span><span class="vocab-pill">negative externality internalization</span><span
+            class="vocab-pill">welfare state efficiency ratio</span><span class="vocab-pill">agency and autonomy
+            metrics</span><span class="vocab-pill">life satisfaction determinants</span><span
+            class="vocab-pill">gender-disaggregated HDI</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">03</span><span class="section-title">Analytical power
+            verbs</span></div>
+        <div class="verb-table-wrap">
+          <table class="verb-table">
+            <thead>
+              <tr>
+                <th>Instead of</th>
+                <th>Use</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="verb-old">ignore</span></td>
+                <td><span class="verb-new">obfuscate / conflate / omit</span></td>
+                <td class="verb-when">Criticising GDP's inability to capture inequality</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">measure</span></td>
+                <td><span class="verb-new">operationalize / quantify / benchmark</span></td>
+                <td class="verb-when">Discussing HDI methodology</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">show gap between</span></td>
+                <td><span class="verb-new">expose the disjuncture between</span></td>
+                <td class="verb-when">Contrasting GDP growth with low HDI</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">improve</span></td>
+                <td><span class="verb-new">augment / elevate / ameliorate</span></td>
+                <td class="verb-when">Discussing development interventions</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">prove</span></td>
+                <td><span class="verb-new">substantiate / corroborate / vindicate</span></td>
+                <td class="verb-when">Using case studies as evidence</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">affect happiness</span></td>
+                <td><span class="verb-new">modulate life satisfaction / shape subjective wellbeing</span></td>
+                <td class="verb-when">Happiness Index analysis</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"Nigeria's resource curse epitomizes the growth-development decoupling phenomenon —
+            oil revenues of $477bn coexist with a 40% poverty rate, exposing GDP as a deeply inadequate development
+            metric."</div>
+          <div class="phrase-item">"Bhutan's GNH framework constitutes a paradigmatic challenge to GDP-centric
+            development theory, demonstrating that ecological sustainability, institutional equity, and social cohesion
+            can generate meaningful human progress without GDP maximization."</div>
+          <div class="phrase-item">"The HDI's composite structure is its principal strength and its most significant
+            limitation — by collapsing health, education, and income into a single index, it conceals distributional
+            inequalities within each dimension."</div>
+          <div class="phrase-item">"Cuba's infant mortality rate of 4 per 1,000 live births — outperforming the United
+            States — vindicates the argument that targeted social investment can overcome the constraints of limited
+            GDP."</div>
+          <div class="phrase-item">"Finland's consistent ranking at the apex of the World Happiness Report corroborates
+            Galtung's concept of positive peace — the presence of justice, not merely the absence of conflict."</div>
+          <div class="phrase-item">"The Happiness Index complements rather than supplants the HDI; where HDI captures
+            structural development outcomes, the WHR operationalizes subjective agency and perceived institutional
+            trust."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Resource Curse Chain</div>
+            <div class="chain-flow">Nigeria oil exports (80% forex)<span class="arrow">→</span>GDP rises ($477bn)<span
+                class="arrow">→</span>Wealth concentrated in elite<span class="arrow">→</span>Gini inequality
+              widens<span class="arrow">→</span>40%+ below poverty line<span class="arrow">→</span>HDI rank 161 → GDP
+              exposed as insufficient metric</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Growth ≠ Development</div>
+            <div class="chain-flow">China GDP growth 10% for 30 years<span class="arrow">→</span>800M lifted from
+              poverty<span class="arrow">→</span>BUT Gini 0.47 (high inequality)<span class="arrow">→</span>Urban earn
+              2.5x rural<span class="arrow">→</span>CO₂ 30% global emissions<span class="arrow">→</span>Development
+              remains uneven</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Social Policy → Development Without Growth</div>
+            <div class="chain-flow">Cuba limited GDP + US sanctions<span class="arrow">→</span>Universal healthcare
+              deployed<span class="arrow">→</span>Infant mortality 4/1000 (beats USA)<span
+                class="arrow">→</span>Literacy 99.8%<span class="arrow">→</span>HDI indicators strong despite low
+              income<span class="arrow">→</span>Social policy > GDP for development</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Happiness Determinants Chain</div>
+            <div class="chain-flow">Finland: high institutional trust + low corruption<span
+                class="arrow">→</span>Universal welfare state<span class="arrow">→</span>Strong social capital<span
+                class="arrow">→</span>Work-life balance culture<span class="arrow">→</span>High autonomy (freedom to
+              choose)<span class="arrow">→</span>WHR #1 for 8 years</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Afghanistan Collapse Chain</div>
+            <div class="chain-flow">Decades of conflict<span class="arrow">→</span>Political instability → institutional
+              breakdown<span class="arrow">→</span>Corruption (low trust)<span
+                class="arrow">→</span>Healthcare/education collapse<span class="arrow">→</span>Low autonomy (especially
+              women)<span class="arrow">→</span>WHR last place</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TRADE & AID ══ -->
+    <div class="unit-panel" id="unit-trade">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">India National Solar Mission (NSM)</div>
+            <div class="kw-def">Domestic Content Requirements triggered US-India WTO solar panel dispute in 2013</div>
+            <div class="kw-link">→ WTO success case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">DCR (Domestic Content Requirements)</div>
+            <div class="kw-def">India's rule forcing solar developers to buy Indian-made cells — ruled WTO-illegal</div>
+            <div class="kw-link">→ Green protectionism debate</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">PLI scheme replacement</div>
+            <div class="kw-def">India replaced DCR with Production Linked Incentives — WTO-compliant subsidy mechanism
+            </div>
+            <div class="kw-link">→ WTO dispute resolution / compliance</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">India "Made in India" labelling</div>
+            <div class="kw-def">Country-of-origin rules triggered China-India WTO dispute (2019-2023) — politically
+              unresolved</div>
+            <div class="kw-link">→ WTO failure case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Senkaku Islands REE embargo</div>
+            <div class="kw-def">China restricted rare earth exports to Japan (2010) following territorial dispute</div>
+            <div class="kw-link">→ Trade as geopolitical weapon</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">NAFTA rules of origin</div>
+            <div class="kw-def">Only goods produced within member countries get tariff-free access — prevents "trade
+              deflection"</div>
+            <div class="kw-link">→ NAFTA key features</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">USMCA labour protections</div>
+            <div class="kw-def">Successor to NAFTA — addressed earlier criticisms of weak labour and environmental
+              standards</div>
+            <div class="kw-link">→ NAFTA limitations / reform</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Sub-Saharan infrastructure gap</div>
+            <div class="kw-def">Region needs $17-22bn annually but receives only $10bn — Aid for Trade rationale</div>
+            <div class="kw-link">→ Aid for Trade (AfT) case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">African Development Bank ports</div>
+            <div class="kw-def">AfT investment in roads, ports, transport corridors — lowering trade costs structurally
+            </div>
+            <div class="kw-link">→ Aid for Trade infrastructure</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">GATT Uruguay Round (1986-1994)</div>
+            <div class="kw-def">Created WTO in 1995 — expanded from goods to services and intellectual property</div>
+            <div class="kw-link">→ WTO origin / GATT limitations</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Most Favoured Nation (MFN) principle</div>
+            <div class="kw-def">Any advantage given to one WTO member must be extended to all — non-discrimination core
+            </div>
+            <div class="kw-link">→ WTO fairness mechanism</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">US-China tariff escalation</div>
+            <div class="kw-def">Firms produce where labour costs lower — illustrates how tariffs distort FOP allocation
+            </div>
+            <div class="kw-link">→ Protectionism / market decisions</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">iPhone components from 40+ countries</div>
+            <div class="kw-def">Globalisation via global supply chains — interdependence enabling specialisation</div>
+            <div class="kw-link">→ Globalisation drivers</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Kenya/Ethiopia AfT income rise</div>
+            <div class="kw-def">Improved trading conditions raised farmer incomes — Aid for Trade poverty reduction
+              evidence</div>
+            <div class="kw-link">→ AfT social impact</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Green protectionism debate</div>
+            <div class="kw-def">WTO India solar ruling exposed tension between climate goals and free trade rules</div>
+            <div class="kw-link">→ WTO opportunity/threat</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">comparative advantage framework</span><span class="vocab-pill">non-tariff barrier
+            proliferation</span><span class="vocab-pill">trade liberalization dividend</span><span
+            class="vocab-pill">productive capacity building</span><span class="vocab-pill">rules-based multilateral
+            order</span><span class="vocab-pill">dispute settlement mechanism</span><span class="vocab-pill">infant
+            industry protection rationale</span><span class="vocab-pill">regulatory harmonization</span><span
+            class="vocab-pill">bilateral trade asymmetry</span><span class="vocab-pill">geopolitical trade
+            weaponization</span><span class="vocab-pill">supply chain resilience</span><span class="vocab-pill">green
+            industrial policy tension</span><span class="vocab-pill">trade-development nexus</span><span
+            class="vocab-pill">import substitution vs export promotion</span><span class="vocab-pill">structural trade
+            barrier</span><span class="vocab-pill">preferential trade agreement</span><span class="vocab-pill">economic
+            interdependence as deterrent</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">03</span><span class="section-title">Analytical power
+            verbs</span></div>
+        <div class="verb-table-wrap">
+          <table class="verb-table">
+            <thead>
+              <tr>
+                <th>Instead of</th>
+                <th>Use</th>
+                <th>When</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="verb-old">break rules</span></td>
+                <td><span class="verb-new">contravene / infringe / circumvent</span></td>
+                <td class="verb-when">WTO dispute analysis</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">help developing countries</span></td>
+                <td><span class="verb-new">capacitate / structurally integrate / mainstream</span></td>
+                <td class="verb-when">Aid for Trade arguments</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">block</span></td>
+                <td><span class="verb-new">impede / constrain / preclude</span></td>
+                <td class="verb-when">Trade barrier analysis</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">agree</span></td>
+                <td><span class="verb-new">ratify / codify / adjudicate</span></td>
+                <td class="verb-when">WTO/NAFTA legal mechanisms</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">use trade as weapon</span></td>
+                <td><span class="verb-new">weaponize economic interdependence</span></td>
+                <td class="verb-when">REE/Russia energy geopolitics</td>
+              </tr>
+              <tr>
+                <td><span class="verb-old">fix</span></td>
+                <td><span class="verb-new">redress / rectify / remediate</span></td>
+                <td class="verb-when">Policy solutions in trade disputes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"The India-US solar dispute encapsulates the fundamental tension in contemporary
+            trade governance: the WTO's non-discrimination principles were not designed to accommodate the imperatives
+            of climate transition, revealing a structural inadequacy in multilateral trade law."</div>
+          <div class="phrase-item">"NAFTA's rules of origin provisions demonstrate how regional trade agreements embed
+            structural protectionism even within ostensibly liberalizing frameworks — only goods manufactured within the
+            bloc receive preferential treatment."</div>
+          <div class="phrase-item">"The WTO India-China labelling dispute illustrates the organization's most critical
+            limitation: when geopolitical interests eclipse trade disagreements, the dispute settlement mechanism loses
+            its authority to enforce compliance."</div>
+          <div class="phrase-item">"Sub-Saharan Africa's infrastructure deficit — receiving only $10bn of the $17-22bn
+            required annually — reveals how Aid for Trade addresses the supply-side constraints that trade
+            liberalization alone cannot resolve."</div>
+          <div class="phrase-item">"Globalisation's defining paradox is that while interdependence generates efficiency
+            gains through specialization, it simultaneously amplifies systemic vulnerability — as evidenced by
+            COVID-19's catastrophic disruption of global supply chains."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">WTO Success Chain</div>
+            <div class="chain-flow">India NSM → DCR rules (buy Indian solar)<span class="arrow">→</span>US files WTO
+              complaint 2013<span class="arrow">→</span>WTO rules against India<span class="arrow">→</span>India
+              replaces DCR with PLI (WTO-compliant)<span class="arrow">→</span>Foreign investment enters solar
+              market<span class="arrow">→</span>Cheaper panels + rural electrification</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">WTO Failure Chain</div>
+            <div class="chain-flow">India-China border tensions (political)<span class="arrow">→</span>India tightens
+              country-of-origin labelling<span class="arrow">→</span>Chinese goods delayed at ports<span
+                class="arrow">→</span>China files WTO complaint<span class="arrow">→</span>No formal panel created
+              (political block)<span class="arrow">→</span>WTO enforcement paralysed → dispute unresolved</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Aid for Trade Poverty Chain</div>
+            <div class="chain-flow">SSA structural barriers (poor infrastructure, weak institutions)<span
+                class="arrow">→</span>$12bn AfT investment gap<span class="arrow">→</span>AfDB road/port investment<span
+                class="arrow">→</span>Transport costs fall<span class="arrow">→</span>Farmers in Kenya/Ethiopia access
+              markets<span class="arrow">→</span>Income rises → poverty reduction</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Globalisation Vulnerability Chain</div>
+            <div class="chain-flow">iPhone supply chain (40+ countries)<span class="arrow">→</span>Deep
+              interdependence<span class="arrow">→</span>COVID-19 disruption<span class="arrow">→</span>Supply chain
+              fracture<span class="arrow">→</span>Semiconductor shortage<span class="arrow">→</span>Apple accelerates
+              M-series vertical integration<span class="arrow">→</span>Resilience prioritized over efficiency</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">NAFTA Winners/Losers Chain</div>
+            <div class="chain-flow">NAFTA 1994 eliminates tariffs<span class="arrow">→</span>US companies relocate to
+              Mexico (cheaper labour)<span class="arrow">→</span>Mexican maquiladora zones grow<span
+                class="arrow">→</span>US manufacturing job losses<span class="arrow">→</span>Rural Mexico farmers
+              undercut by US agricultural subsidies<span class="arrow">→</span>Uneven distributional gains → USMCA
+              reform</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ RESOURCE GEOPOLITICS ══ -->
+    <div class="unit-panel" id="unit-resource">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Heartland Theory (Mackinder)</div>
+            <div class="kw-def">Whoever controls Eastern Europe → Heartland → World Island → World — geography
+              determines power</div>
+            <div class="kw-link">→ Foundation of resource geopolitics</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Nord Stream pipeline</div>
+            <div class="kw-def">Russia's gas as geopolitical weapon — cutting supplies to sanction-imposing European
+              nations</div>
+            <div class="kw-link">→ Russia-Ukraine energy conflict</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">LNG imports from Qatar/USA</div>
+            <div class="kw-def">Europe's post-Russia energy diversification — liquefied natural gas replacing pipeline
+              dependency</div>
+            <div class="kw-link">→ Russia-Ukraine impact on Europe</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Grand Ethiopian Renaissance Dam (GERD)</div>
+            <div class="kw-def">Ethiopia's hydropower dam threatening Egypt's 90% Nile dependency — water as conflict
+              trigger</div>
+            <div class="kw-link">→ Nile River water dispute</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Kakhovka Dam destruction</div>
+            <div class="kw-def">Russia-Ukraine 2023 — water infrastructure used as warfare instrument against civilians
+            </div>
+            <div class="kw-link">→ Water as a weapon</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">China 80% REE control</div>
+            <div class="kw-def">China dominates ~80% of global rare earth elements supply — leverage over tech-dependent
+              nations</div>
+            <div class="kw-link">→ REE dispute / China-Japan 2010</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Senkaku Islands REE embargo 2010</div>
+            <div class="kw-def">China weaponized REE exports following Japan territorial dispute — economic coercion
+            </div>
+            <div class="kw-link">→ REE geopolitics case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Arctic resource race</div>
+            <div class="kw-def">Melting ice reveals oil, gas, new shipping lanes — Russia building Arctic military bases
+            </div>
+            <div class="kw-link">→ Climate change opening new geopolitical fronts</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">1973 OPEC oil embargo</div>
+            <div class="kw-def">Yom Kippur War → OPEC cuts supply → oil prices surge → nuclear investment accelerates
+              globally</div>
+            <div class="kw-link">→ Oil as geopolitical weapon / nuclear boom</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Chernobyl Reactor 4 (April 26, 1986)</div>
+            <div class="kw-def">Safety test failure → steam explosion → radioactive cloud across Europe → 30km exclusion
+              zone</div>
+            <div class="kw-link">→ Nuclear disaster / policy impact</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Fukushima Daiichi (March 11, 2011)</div>
+            <div class="kw-def">M9 earthquake + tsunami → cooling system failure → meltdown → 150,000 evacuated</div>
+            <div class="kw-link">→ Nuclear disaster / Japan policy shift</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Small Modular Reactors (SMRs)</div>
+            <div class="kw-def">Post-Fukushima innovation — factory-built, cheaper, safer, passive safety features</div>
+            <div class="kw-link">→ Nuclear energy future / WNA response</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">US shale fracking revolution</div>
+            <div class="kw-def">Hydraulic fracturing transformed USA from importer to leading oil exporter —
+              geopolitical power shift</div>
+            <div class="kw-link">→ Technology reshaping geopolitics</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Scramble for Africa (1880s)</div>
+            <div class="kw-def">European colonization for rubber/gold/minerals → artificial borders → modern conflict
+              legacy</div>
+            <div class="kw-link">→ Historical resource competition / DR Congo</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">DR Congo cobalt-coltan</div>
+            <div class="kw-def">Modern mineral conflict — colonial legacy of resource extraction perpetuating
+              instability</div>
+            <div class="kw-link">→ Scramble for Africa contemporary link</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Elikhulu Tailings Plant (PAR)</div>
+            <div class="kw-def">Pan African Resources treating mine tailings as resource — circular economy in mining
+            </div>
+            <div class="kw-link">→ Sustainable mining / circular economy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Barberton UNESCO biome</div>
+            <div class="kw-def">PAR operating within World Heritage Site — land rehabilitation as sustainability
+              practice</div>
+            <div class="kw-link">→ Pan African Resources case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Boserup vs Malthus</div>
+            <div class="kw-def">Malthus: population outpaces food (crisis). Boserup: population drives agricultural
+              innovation (solution)</div>
+            <div class="kw-link">→ Resource theory debate</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">resource nationalism</span><span class="vocab-pill">geopolitical weaponization of
+            energy</span><span class="vocab-pill">transboundary resource conflict</span><span
+            class="vocab-pill">strategic resource dependency</span><span class="vocab-pill">circular economy
+            regenerative model</span><span class="vocab-pill">hydraulic fracturing geopolitics</span><span
+            class="vocab-pill">nuclear deterrence paradox</span><span class="vocab-pill">rare earth supply chain
+            diversification</span><span class="vocab-pill">environmental security nexus</span><span
+            class="vocab-pill">closed-loop material recovery</span><span class="vocab-pill">post-colonial resource
+            governance</span><span class="vocab-pill">radioactive contamination half-life</span><span
+            class="vocab-pill">energy security trilemma</span><span class="vocab-pill">linear take-make-dispose
+            paradigm</span><span class="vocab-pill">climate-resource conflict amplification</span><span
+            class="vocab-pill">resource curse institutional failure</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"Russia's reduction of gas supplies to Europe epitomizes the weaponization of
+            resource interdependence — energy ceased to function as a traded commodity and became an instrument of
+            geopolitical coercion."</div>
+          <div class="phrase-item">"The GERD dispute reveals a fundamental asymmetry in transboundary water governance:
+            Ethiopia's right to development directly conflicts with Egypt's existential dependency on Nile flow, a
+            tension that international law has yet to adequately adjudicate."</div>
+          <div class="phrase-item">"China's control of 80% of global rare earth supply demonstrates how resource
+            concentration functions as a structural geopolitical lever — technological dependency becomes strategic
+            vulnerability for importing nations."</div>
+          <div class="phrase-item">"Chernobyl and Fukushima collectively illustrate that nuclear energy's geopolitical
+            promise of energy independence is permanently constrained by catastrophic tail risks that transcend national
+            borders."</div>
+          <div class="phrase-item">"The circular economy model advanced by Pan African Resources fundamentally
+            reconceptualises waste — mine tailings become recoverable resources, transforming an environmental liability
+            into a revenue stream."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Energy Weapon Chain</div>
+            <div class="chain-flow">Russia invades Ukraine<span class="arrow">→</span>EU imposes sanctions<span
+                class="arrow">→</span>Russia cuts Nord Stream gas<span class="arrow">→</span>Energy prices surge
+              globally<span class="arrow">→</span>Europe accelerates renewables + LNG imports<span
+                class="arrow">→</span>Geopolitical realignment of energy supply chains</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Nuclear Energy Arc</div>
+            <div class="chain-flow">1973 OPEC embargo (oil price shock)<span class="arrow">→</span>50%+ of world's
+              reactors built 1970-85<span class="arrow">→</span>Chernobyl 1986 / Fukushima 2011 (public distrust)<span
+                class="arrow">→</span>Countries phase out nuclear<span class="arrow">→</span>SMR innovation as
+              solution<span class="arrow">→</span>10% global electricity still nuclear</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">REE Coercion Chain</div>
+            <div class="chain-flow">Senkaku territorial dispute (Japan-China 2010)<span class="arrow">→</span>China
+              restricts REE exports to Japan<span class="arrow">→</span>Japan tech industry disrupted<span
+                class="arrow">→</span>Japan + USA diversify supply chains<span class="arrow">→</span>Investment in REE
+              alternatives accelerates<span class="arrow">→</span>China's leverage partially eroded</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Circular Economy Chain (PAR)</div>
+            <div class="chain-flow">Mining produces tailings (waste)<span class="arrow">→</span>Traditional:
+              environmental liability<span class="arrow">→</span>PAR Elikhulu: retreats tailings for minerals<span
+                class="arrow">→</span>Closed-loop water recycling<span class="arrow">→</span>Solar PV reduces CO₂ by
+              26,000t/yr<span class="arrow">→</span>Blueberry farm diversifies community income → sustainable mining
+              model</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Climate → New Resource Competition</div>
+            <div class="chain-flow">Arctic ice melts (climate change)<span class="arrow">→</span>Oil, gas, shipping
+              routes revealed<span class="arrow">→</span>Russia builds Arctic military bases<span
+                class="arrow">→</span>USA/Canada/Denmark assert claims<span class="arrow">→</span>Geopolitical
+              competition intensifies<span class="arrow">→</span>Fragile Arctic ecosystem endangered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PEACE & CONFLICT ══ -->
+    <div class="unit-panel" id="unit-peace">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Galtung conflict triangle</div>
+            <div class="kw-def">Direct / Structural / Cultural violence — requires all three addressed for positive
+              peace</div>
+            <div class="kw-link">→ Theoretical framework for all UN cases</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">MONUSCO Force Intervention Brigade</div>
+            <div class="kw-def">First UN brigade authorized for offensive operations — active peacekeeping beyond
+              Chapter VI</div>
+            <div class="kw-link">→ DRC peacekeeping case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Simla Agreement 1972</div>
+            <div class="kw-def">Post-1971 war India-Pakistan diplomatic framework — UN-supported but unenforceable
+              long-term</div>
+            <div class="kw-link">→ Indo-Pak peacebuilding failure</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Yalta Conference February 1945</div>
+            <div class="kw-def">Stalin-Churchill-Roosevelt: Germany divided, UN formed, Eastern Europe elections
+              promised (unfulfilled)</div>
+            <div class="kw-link">→ WWII / Cold War origins</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Iron Curtain speech (1946)</div>
+            <div class="kw-def">Churchill's Fulton, Missouri speech — defined ideological division of Europe as Cold War
+              began</div>
+            <div class="kw-link">→ Cold War origins</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Marshall Plan $13bn</div>
+            <div class="kw-def">US economic reconstruction of Western Europe — ideological containment via economic
+              dependency</div>
+            <div class="kw-link">→ Truman Doctrine / Cold War ideology</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Cuban Missile Crisis 13 days</div>
+            <div class="kw-def">Soviet missiles in Cuba → 13-day nuclear brinkmanship → secret removal deal</div>
+            <div class="kw-link">→ Cold War crises / UN mediation</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">38th parallel DMZ</div>
+            <div class="kw-def">Korean War stalemate boundary — UN armistice 1953; peninsula divided to present</div>
+            <div class="kw-link">→ Korean War peacekeeping</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">UN Resolution 82 (Korea)</div>
+            <div class="kw-def">First UNSC authorization of military force — demanded North Korean withdrawal,
+              legitimized intervention</div>
+            <div class="kw-link">→ Korean War UN role</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Russia UNSC veto (Syria)</div>
+            <div class="kw-def">Blocked sanctions + chemical weapons investigations — Security Council paralysed by P5
+              politics</div>
+            <div class="kw-link">→ UN failure / Syria Civil War</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Arab Spring Tunisia (2010)</div>
+            <div class="kw-def">Only successful Arab Spring transition — Ben Ali ousted after 23 years, democratic
+              elections 2011</div>
+            <div class="kw-link">→ Arab Spring success case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Syrian Civil War ISIS rise</div>
+            <div class="kw-def">Peaceful protests → violent crackdown → civil war → ISIS → refugee crisis → Assad
+              remains</div>
+            <div class="kw-link">→ Arab Spring failure / UN limitations</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Velvet Revolution 1989</div>
+            <div class="kw-def">Peaceful student-led collapse of communist Czechoslovakia — no violence</div>
+            <div class="kw-link">→ Cold War collapse / peaceful transition</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Romanian Revolution 1989</div>
+            <div class="kw-def">Violent overthrow of Ceaușescu — contrast to Velvet Revolution in same year</div>
+            <div class="kw-link">→ Varied Cold War endings</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Indo-Soviet Treaty 1971</div>
+            <div class="kw-def">India aligned with USSR; USA/China backed Pakistan — regional war as Cold War proxy
+            </div>
+            <div class="kw-link">→ 1971 Indo-Pak War / Cold War proxy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Hiroshima "Little Boy" (Aug 6, 1945)</div>
+            <div class="kw-def">U-235 gun-type bomb → 70-80,000 immediate deaths → Japan surrender → nuclear age begins
+            </div>
+            <div class="kw-link">→ Atomic bombings</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Manhattan Project 1941</div>
+            <div class="kw-def">Secret US-UK-Canada nuclear weapons program → Trinity test July 1945 →
+              Hiroshima/Nagasaki</div>
+            <div class="kw-link">→ Nuclear weapon development timeline</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">UNMISS South Sudan</div>
+            <div class="kw-def">2011 UN mission protecting civilians amid ethnic tensions — ongoing complex mandate
+            </div>
+            <div class="kw-link">→ Current UN peacekeeping operation</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">positive vs negative peace distinction</span><span class="vocab-pill">structural
+            violence perpetuation</span><span class="vocab-pill">brinkmanship deterrence</span><span
+            class="vocab-pill">proxy conflict amplification</span><span class="vocab-pill">multidimensional peacekeeping
+            mandate</span><span class="vocab-pill">P5 veto paralysis</span><span class="vocab-pill">ideological
+            containment strategy</span><span class="vocab-pill">sovereignty vs humanitarian intervention</span><span
+            class="vocab-pill">transitional justice mechanism</span><span class="vocab-pill">track-two
+            diplomacy</span><span class="vocab-pill">mutual assured destruction doctrine</span><span
+            class="vocab-pill">Cold War bipolarity</span><span class="vocab-pill">peacebuilding-peacemaking-peacekeeping
+            triad</span><span class="vocab-pill">non-state armed actor</span><span class="vocab-pill">conflict
+            transformation vs conflict resolution</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"Galtung's conflict triangle demands we move beyond the cessation of hostilities —
+            true peace requires dismantling structural violence, a dimension the UN's peacekeeping mandate addresses
+            only partially."</div>
+          <div class="phrase-item">"Russia's repeated veto of Security Council resolutions on Syrian chemical weapons
+            use exemplifies the P5 paralysis that transforms the UN's collective security architecture into a forum for
+            geopolitical self-interest rather than human protection."</div>
+          <div class="phrase-item">"The 1971 Indo-Pak War demonstrates how Cold War bipolarity transformed regional
+            disputes into geopolitical flashpoints — the superpower alignment of USA-China-Pakistan against India-USSR
+            effectively precluded UN intervention."</div>
+          <div class="phrase-item">"The Korean Armistice of 1953 represents peacemaking without peacebuilding —
+            hostilities were suspended, but the structural conditions for conflict, ideological division and contested
+            sovereignty, were never addressed."</div>
+          <div class="phrase-item">"The Arab Spring's divergent outcomes — Tunisia's democratic consolidation versus
+            Syria's catastrophic civil war — illustrate that political liberalization without institutional resilience
+            creates a power vacuum that authoritarian and extremist forces readily exploit."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Cold War Ideology → Proxy War</div>
+            <div class="chain-flow">WWII ends → US (capitalism) vs USSR (communism)<span class="arrow">→</span>Iron
+              Curtain (1946)<span class="arrow">→</span>Marshall Plan vs Cominform<span class="arrow">→</span>Korea 1950
+              (proxy war)<span class="arrow">→</span>Vietnam 1955-75 (proxy escalation)<span class="arrow">→</span>1971
+              Indo-Pak (regional proxy)<span class="arrow">→</span>USSR collapse 1991</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">UN Success: Ebola</div>
+            <div class="chain-flow">Ebola outbreak Guinea/Liberia/Sierra Leone 2014<span class="arrow">→</span>WHO
+              deploys medical teams<span class="arrow">→</span>UNMEER (first emergency health mission)<span
+                class="arrow">→</span>WFP logistics + UNICEF community outreach<span class="arrow">→</span>Contact
+              tracing + health system stabilization<span class="arrow">→</span>Outbreak contained → model for future
+              crises</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">UN Failure: Syria</div>
+            <div class="chain-flow">2011 peaceful protests<span class="arrow">→</span>Assad violent crackdown<span
+                class="arrow">→</span>Civil war erupts<span class="arrow">→</span>ISIS emerges<span
+                class="arrow">→</span>Russia vetoes UNSC resolutions (repeatedly)<span class="arrow">→</span>No
+              enforcement possible<span class="arrow">→</span>Millions displaced → Assad remains in power</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Atomic Bombs → Nuclear Age</div>
+            <div class="chain-flow">Japan refuses surrender<span class="arrow">→</span>Truman authorizes atomic
+              bombing<span class="arrow">→</span>Hiroshima Aug 6 + Nagasaki Aug 9<span class="arrow">→</span>Japan
+              surrenders Aug 15<span class="arrow">→</span>200,000+ eventual deaths<span class="arrow">→</span>UN
+              created 1945<span class="arrow">→</span>Cold War arms race begins<span class="arrow">→</span>Nuclear
+              disarmament movements</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ RIGHTS & PROTEST ══ -->
+    <div class="unit-panel" id="unit-rights">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Plessy v. Ferguson 1896</div>
+            <div class="kw-def">"Separate but equal" doctrine legalized — Homer Plessy 1/8 Black, Louisiana Separate Car
+              Act</div>
+            <div class="kw-link">→ Legal foundation of Jim Crow</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Brown v. Board 1954</div>
+            <div class="kw-def">NAACP/Thurgood Marshall + doll test evidence → segregated schools "inherently unequal"
+            </div>
+            <div class="kw-link">→ Landmark legal victory</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Kenneth Clark doll test</div>
+            <div class="kw-def">Psychological evidence of segregation's damage to Black children's self-esteem — used in
+              Brown case</div>
+            <div class="kw-link">→ Brown v. Board evidence</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Rosa Parks December 1, 1955</div>
+            <div class="kw-def">NAACP member refused to yield bus seat → arrested → Montgomery Bus Boycott triggered
+            </div>
+            <div class="kw-link">→ Montgomery Bus Boycott catalyst</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">381-day boycott</div>
+            <div class="kw-def">Montgomery boycott duration — buses lost 65% income; $1M loss to local businesses</div>
+            <div class="kw-link">→ Economic power of collective protest</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Browder v. Gayle 1956</div>
+            <div class="kw-def">SCOTUS ruled bus segregation unconstitutional — legal validation of boycott's civil
+              disobedience</div>
+            <div class="kw-link">→ Boycott legal outcome</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Greensboro Four (Feb 1, 1960)</div>
+            <div class="kw-def">Ezell Blair Jr., Franklin McCain, Joseph McNeil, David Richmond — Woolworth's lunch
+              counter sit-in</div>
+            <div class="kw-link">→ Sit-in movement origin</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Woolworth's desegregated July 25, 1960</div>
+            <div class="kw-def">6 months after sit-in began — economic pressure (revenue loss) forced desegregation
+            </div>
+            <div class="kw-link">→ Sit-in movement outcome</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Anniston bus firebombing May 14, 1961</div>
+            <div class="kw-def">Freedom Riders' bus attacked in Alabama — mob violence with police complicity</div>
+            <div class="kw-link">→ Freedom Riders / federal pressure</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">ICC desegregation order Sept 1961</div>
+            <div class="kw-def">Interstate Commerce Commission ordered desegregation of all bus terminals — Freedom
+              Rider outcome</div>
+            <div class="kw-link">→ Freedom Rides federal victory</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Bloody Sunday Selma 1965</div>
+            <div class="kw-def">Police attacked peaceful marchers on Edmund Pettus Bridge → national outrage → Voting
+              Rights Act</div>
+            <div class="kw-link">→ Selma marches / Voting Rights Act</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Little Rock Nine / 101st Airborne</div>
+            <div class="kw-def">Eisenhower federalized National Guard to enforce desegregation — governor Faubus defied
+              SCOTUS</div>
+            <div class="kw-link">→ Federal enforcement of Brown ruling</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Ernest Green 1958</div>
+            <div class="kw-def">First Black graduate of Central High, Little Rock — under daily harassment throughout
+              year</div>
+            <div class="kw-link">→ Little Rock Nine legacy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Birmingham fire hoses + police dogs</div>
+            <div class="kw-def">Media images of police brutality against peaceful children → global outrage → Civil
+              Rights Act push</div>
+            <div class="kw-link">→ Birmingham Campaign / propaganda power</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Children's Crusade Birmingham 1963</div>
+            <div class="kw-def">Thousands of schoolchildren marched — filling jails, forcing national attention through
+              sacrifice</div>
+            <div class="kw-link">→ SCLC strategy / youth activism</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Letter from Birmingham Jail</div>
+            <div class="kw-def">MLK argues moral duty to break unjust laws; critiques "white moderate" passive
+              complicity</div>
+            <div class="kw-link">→ MLK intellectual legacy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">250,000 March on Washington</div>
+            <div class="kw-def">Largest US protest at time (Aug 28, 1963) — culminated in "I Have a Dream" speech</div>
+            <div class="kw-link">→ March on Washington / Civil Rights Act momentum</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Harper v. Virginia 1966</div>
+            <div class="kw-def">Poll taxes banned in all elections — final legal dismantling of voting suppression
+              apparatus</div>
+            <div class="kw-link">→ Voting rights legal chain</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Black Power / Stokely Carmichael</div>
+            <div class="kw-def">Shift from nonviolent integration to Black self-determination — internal movement
+              radicalization</div>
+            <div class="kw-link">→ Movement evolution / limitations of nonviolence</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">De jure vs de facto segregation</div>
+            <div class="kw-def">Legal segregation (South/Jim Crow) vs customary segregation (North — schools, housing)
+            </div>
+            <div class="kw-link">→ Core definitional distinction</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">systemic racial discrimination</span><span class="vocab-pill">civil disobedience
+            legitimacy</span><span class="vocab-pill">strategic nonviolence calculus</span><span
+            class="vocab-pill">legal precedent dismantlement</span><span class="vocab-pill">intersectionality of race
+            and class</span><span class="vocab-pill">consumer economic leverage</span><span
+            class="vocab-pill">institutional racism perpetuation</span><span class="vocab-pill">media propaganda as
+            movement tool</span><span class="vocab-pill">equal protection clause jurisprudence</span><span
+            class="vocab-pill">legislative-protest feedback loop</span><span class="vocab-pill">radicalization of
+            liberation movements</span><span class="vocab-pill">white moderate complicity</span><span
+            class="vocab-pill">constitutional vs universal rights distinction</span><span
+            class="vocab-pill">disenfranchisement apparatus</span><span class="vocab-pill">socio-legal
+            transformation</span><span class="vocab-pill">youth-led grassroots mobilization</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"Brown v. Board constituted not merely a legal reversal but an epistemological
+            rupture — it repudiated the philosophical foundation of 'separate but equal' by demonstrating that
+            segregation itself is an instrument of psychological harm."</div>
+          <div class="phrase-item">"The Montgomery Bus Boycott substantiates the argument that economic leverage — not
+            merely moral appeal — is the most effective mechanism of nonviolent pressure: a 65% revenue loss forced
+            institutional recalculation."</div>
+          <div class="phrase-item">"MLK's Letter from Birmingham Jail identifies the white moderate as a more insidious
+            obstacle than the avowed segregationist — their preference for 'order' over 'justice' perpetuated structural
+            violence through passive complicity."</div>
+          <div class="phrase-item">"The Greensboro sit-ins catalysed a decentralised national movement, demonstrating
+            that collective agency can bypass formal organisational structures — four students precipitated 70+
+            communities of activism within weeks."</div>
+          <div class="phrase-item">"The NAACP's legal strategy reveals a critical tension in civil rights work:
+            institutional change through courts is durable but slow, while direct action generates urgency but risks
+            backlash — the most effective movements deployed both simultaneously."</div>
+          <div class="phrase-item">"The trajectory from Rosa Parks (1955) to the Voting Rights Act (1965) reveals a
+            legislative-protest feedback loop: each protest generated media coverage, each image generated political
+            pressure, each political pressure produced incremental legal reform."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Legal Chain: Plessy → Brown → Civil Rights Act</div>
+            <div class="chain-flow">Plessy 1896 ("separate but equal" legal)<span class="arrow">→</span>Jim Crow
+              institutionalized<span class="arrow">→</span>NAACP legal strategy builds<span class="arrow">→</span>Brown
+              1954 (separate = unequal)<span class="arrow">→</span>Southern resistance (Little Rock 1957)<span
+                class="arrow">→</span>Federal enforcement required<span class="arrow">→</span>Civil Rights Act 1964
+            </div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Economic Pressure Chain</div>
+            <div class="chain-flow">Rosa Parks arrested Dec 1 1955<span class="arrow">→</span>MIA organizes boycott<span
+                class="arrow">→</span>381 days of collective action<span class="arrow">→</span>Buses lose 65%
+              income<span class="arrow">→</span>$1M local business loss<span class="arrow">→</span>White businessmen
+              oppose segregation<span class="arrow">→</span>Browder v. Gayle 1956 → buses desegregated</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Media → Political Pressure Chain</div>
+            <div class="chain-flow">Birmingham Campaign 1963<span class="arrow">→</span>Police dogs + fire hoses on
+              children televised<span class="arrow">→</span>Global media outrage<span
+                class="arrow">→</span>International diplomatic embarrassment (Cold War context)<span
+                class="arrow">→</span>JFK forced to act<span class="arrow">→</span>Civil Rights Bill introduced<span
+                class="arrow">→</span>Civil Rights Act signed July 2, 1964</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Youth Activism → Organization → Law</div>
+            <div class="chain-flow">Greensboro Four (Feb 1, 1960)<span class="arrow">→</span>Sit-ins spread to 70+
+              communities<span class="arrow">→</span>SNCC founded April 1960<span class="arrow">→</span>Freedom Rides
+              1961 (CORE + SNCC)<span class="arrow">→</span>Federal pressure → ICC desegregation order<span
+                class="arrow">→</span>March on Washington 1963<span class="arrow">→</span>Voting Rights Act 1965</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Voting Suppression → Dismantlement</div>
+            <div class="chain-flow">15th Amendment 1870 (Black men can vote)<span class="arrow">→</span>Literacy tests +
+              poll taxes + grandfather clauses + KKK violence<span class="arrow">→</span>Selma marches → Bloody
+              Sunday<span class="arrow">→</span>National outrage<span class="arrow">→</span>Voting Rights Act 1965<span
+                class="arrow">→</span>Harper v. Virginia 1966 (poll taxes banned)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ POPULATION & MIGRATION ══ -->
+    <div class="unit-panel" id="unit-pop">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Hu Huanyong Line</div>
+            <div class="kw-def">Geographic dividing line — 94% of China's population lives on 43% of eastern land</div>
+            <div class="kw-link">→ China population density/distribution</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">China One-Child Policy 1980</div>
+            <div class="kw-def">Anti-natalist policy → rapid BR decline + ageing population + gender imbalance + "Little
+              Emperor" syndrome</div>
+            <div class="kw-link">→ Anti-natalist policy case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">France pro-natalist 1939-present</div>
+            <div class="kw-def">Monthly child benefits, parental leave, subsidised childcare → one of Europe's highest
+              fertility rates</div>
+            <div class="kw-link">→ Pro-natalist policy case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Japan TFR 1.3</div>
+            <div class="kw-def">Among world's lowest — 28%+ population over 65; population declining since 2010</div>
+            <div class="kw-link">→ Japan ageing population</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Japan "grey vote"</div>
+            <div class="kw-def">Political power of elderly increases as they dominate electorate — policy skewed toward
+              pensions over youth</div>
+            <div class="kw-link">→ Japan demographic impact on governance</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Dharavi Mumbai</div>
+            <div class="kw-def">Asia's largest slum — extreme overcrowding, inadequate sanitation, product of
+              rural-urban migration</div>
+            <div class="kw-link">→ India urbanization / informal settlements</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Bangladesh density 1,125/km²</div>
+            <div class="kw-def">Density explains ~60% of COVID-19 case variation; cholera + Nipah virus endemic risk
+            </div>
+            <div class="kw-link">→ Population density + disease</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Rana Plaza 2013</div>
+            <div class="kw-def">1,100+ deaths — urban overcrowding + unsafe working conditions + weak health regulation
+              intersection</div>
+            <div class="kw-link">→ Bangladesh urbanization + health</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">MGNREGA rural employment</div>
+            <div class="kw-def">India's guaranteed rural employment scheme — reduces distress migration but wages too
+              low</div>
+            <div class="kw-link">→ India migration policy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Nigeria Lagos TB 440/100,000</div>
+            <div class="kw-def">vs UK's 8/100,000 — poverty, overcrowding, limited diagnostics drive communicable
+              disease</div>
+            <div class="kw-link">→ TB LIC vs HIC comparison</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Haiti Vibrio cholerae 2010</div>
+            <div class="kw-def">UN peacekeepers introduced cholera from Nepal → 10,000 deaths — infrastructure collapse
+              post-earthquake</div>
+            <div class="kw-link">→ Cholera LIC case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Japan zero cholera deaths 2016</div>
+            <div class="kw-def">Advanced sanitation + rapid response contained imported case immediately — HIC
+              resilience</div>
+            <div class="kw-link">→ Cholera HIC contrast</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Australia "Slip-Slop-Slap" campaign</div>
+            <div class="kw-def">Government UV awareness campaign — skin cancer NCD, 14,000+ melanoma cases/year</div>
+            <div class="kw-link">→ Non-communicable disease HIC</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">US obesity 42% adults</div>
+            <div class="kw-def">Car-centric urban design + income inequality + fast food access → NCD epidemic</div>
+            <div class="kw-link">→ NCD in HIC / urban design</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Nipah virus 2024 Bangladesh</div>
+            <div class="kw-def">Zoonotic disease from fruit bats — hospital-based transmission; WHO emergency response
+            </div>
+            <div class="kw-link">→ Bangladesh disease / zoonotic risk</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">demographic momentum</span><span class="vocab-pill">dependency ratio
+            strain</span><span class="vocab-pill">epidemiological transition</span><span class="vocab-pill">zoonotic
+            spillover risk</span><span class="vocab-pill">urban primacy effect</span><span
+            class="vocab-pill">pro-natalist incentive structure</span><span class="vocab-pill">fertility rate
+            replacement threshold</span><span class="vocab-pill">rural-urban migration push-pull dynamic</span><span
+            class="vocab-pill">informal economy absorption</span><span class="vocab-pill">multidimensional health
+            vulnerability</span><span class="vocab-pill">communicable vs non-communicable disease burden</span><span
+            class="vocab-pill">demographic dividend</span><span class="vocab-pill">spatial health inequality</span><span
+            class="vocab-pill">anti-natalist policy externalities</span><span class="vocab-pill">remittance-development
+            nexus</span><span class="vocab-pill">population ageing fiscal pressure</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"China's One-Child Policy achieved its primary demographic objective — rapid birth
+            rate reduction — while generating severe unintended externalities: gender imbalance, accelerated population
+            ageing, and the psychosocial burden of the 'Little Emperor' generation."</div>
+          <div class="phrase-item">"The Haiti-Japan cholera contrast reveals that population density is a neutral
+            variable — its health consequences are entirely determined by the quality of sanitation infrastructure and
+            institutional capacity to respond."</div>
+          <div class="phrase-item">"Bangladesh's density of 1,125 people per km² transforms every outbreak into a
+            systemic crisis: when the Nipah virus emerged in 2024, hospital-based transmission accelerated exponentially
+            due to the absence of spatial buffer zones."</div>
+          <div class="phrase-item">"Japan's ageing demographic crisis illustrates the irreversibility of demographic
+            momentum — even with aggressive pro-natalist incentives, TFR remains at 1.3, ensuring decades of workforce
+            contraction and pension system strain."</div>
+          <div class="phrase-item">"India's rural-to-urban migration is driven not by urban pull alone but by rural
+            push: MGNREGA's failure to match urban wage levels ensures that distress migration persists despite
+            governmental intervention."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Anti-Natalist Policy → Unintended Consequences</div>
+            <div class="chain-flow">China rapid population growth 1970s<span class="arrow">→</span>One-Child Policy
+              1980<span class="arrow">→</span>BR drops sharply<span class="arrow">→</span>Gender imbalance (son
+              preference)<span class="arrow">→</span>Ageing population surges<span class="arrow">→</span>Worker :
+              retiree ratio worsens<span class="arrow">→</span>2015 policy abandoned</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Density → Disease → Migration</div>
+            <div class="chain-flow">Nigeria Lagos overcrowding<span class="arrow">→</span>TB 440/100,000 (endemic)<span
+                class="arrow">→</span>Rural migrants seek treatment in cities<span class="arrow">→</span>Urban density
+              increases further<span class="arrow">→</span>Slum expansion<span class="arrow">→</span>HIV-TB co-infection
+              rises<span class="arrow">→</span>Northern depopulation accelerates</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Japan Ageing Cascade</div>
+            <div class="chain-flow">TFR 1.3 (below replacement 2.1)<span class="arrow">→</span>Working-age population
+              shrinks<span class="arrow">→</span>Tax revenue falls<span class="arrow">→</span>Pension + healthcare costs
+              rise<span class="arrow">→</span>Labour shortages (nursing/farming)<span class="arrow">→</span>Robotics
+              investment<span class="arrow">→</span>Rural depopulation → grey vote dominates policy</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">India Rural-Urban Migration Chain</div>
+            <div class="chain-flow">Bihar/UP agricultural push (seasonal unemployment + drought)<span
+                class="arrow">→</span>Migration to Delhi/Mumbai/Bengaluru<span class="arrow">→</span>Urban density
+              spikes → Dharavi slums<span class="arrow">→</span>Infrastructure strain<span class="arrow">→</span>MGNREGA
+              (partial solution)<span class="arrow">→</span>Remittances to source regions<span
+                class="arrow">→</span>Rural dependency ratio worsens</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ URBANIZATION ══ -->
+    <div class="unit-panel" id="unit-urban">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Barcelona Superblocks</div>
+            <div class="kw-def">500+ planned blocks restricting motor traffic → 700 premature deaths prevented annually
+            </div>
+            <div class="kw-link">→ Urban microclimate / traffic solution</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Singapore ERP system</div>
+            <div class="kw-def">Electronic Road Pricing → average speed 15→25 km/h; dynamic demand management</div>
+            <div class="kw-link">→ Singapore traffic management</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Cheonggyecheon River restoration (Seoul)</div>
+            <div class="kw-def">Elevated highway removed → river restored → lower temperatures, biodiversity, economic
+              revitalisation</div>
+            <div class="kw-link">→ Urban regeneration / heat island mitigation</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Paris 15-minute city</div>
+            <div class="kw-def">All daily needs within 15-minute walk/cycle — reduces commuting emissions and car
+              dependence</div>
+            <div class="kw-link">→ Sustainable urban planning model</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Chongqing Sponge City</div>
+            <div class="kw-def">SUEZ group urban drainage preventing monsoon flooding + AI traffic management</div>
+            <div class="kw-link">→ Smart/resilient city case (LIC)</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Singapore 80% Green Mark by 2030</div>
+            <div class="kw-def">National target for green-certified buildings — smart city sustainability goal</div>
+            <div class="kw-link">→ Singapore smart city</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Masdar City UAE</div>
+            <div class="kw-def">Planned zero-carbon desert city — solar energy, car-free zones, water recycling; slower
+              than planned</div>
+            <div class="kw-link">→ Eco-city case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">High Line New York</div>
+            <div class="kw-def">Abandoned freight rail converted to elevated park 2009 — urban regeneration raising
+              affordability concerns</div>
+            <div class="kw-link">→ Urban regeneration / gentrification tension</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Namami Gange Programme 2014</div>
+            <div class="kw-def">India's Ganges River restoration — wastewater treatment targeting urbanization-caused
+              pollution</div>
+            <div class="kw-link">→ Delhi / water pollution urban case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Kano Nigeria atmospheric water harvest</div>
+            <div class="kw-def">Solar-powered water from air — response to population growth + water infrastructure
+              failure</div>
+            <div class="kw-link">→ African urbanization resource stress</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Paris Olympics River Seine €1.4bn</div>
+            <div class="kw-def">Mega-event driving sustainable urban regeneration — first safe swimming in decades</div>
+            <div class="kw-link">→ Mega-event urban redevelopment</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">European Green Deal net-zero 2050</div>
+            <div class="kw-def">Binding EU climate law — all member industries must comply with emission targets</div>
+            <div class="kw-link">→ Urban sustainability policy</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Burgess concentric zone (Chicago)</div>
+            <div class="kw-def">City expands in rings from CBD — Zone of Transition, Working Class, Better Residences,
+              Commuter</div>
+            <div class="kw-link">→ Urban land use model</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Hoyt sector model (London)</div>
+            <div class="kw-def">Wedge-shaped sectors along transport corridors — rent patterns drive high-income
+              directions</div>
+            <div class="kw-link">→ Urban structure model</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Dell closed-loop plastics</div>
+            <div class="kw-def">Old Dell devices recycled into new Dell products — circular electronics reducing e-waste
+            </div>
+            <div class="kw-link">→ Circular economy / tech sector</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">HUL Project Prithvi</div>
+            <div class="kw-def">5,000+ tonnes of plastic → fuel for cement kilns — India circular waste-to-energy</div>
+            <div class="kw-link">→ Circular economy / India</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">White elephant infrastructure</div>
+            <div class="kw-def">Olympic facilities underutilised post-games — key criticism of mega-event redevelopment
+            </div>
+            <div class="kw-link">→ Paris Olympics limitation</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Urban albedo effect</div>
+            <div class="kw-def">Dark surfaces absorb heat; reflective/green surfaces reduce it — core UHI mitigation
+              mechanism</div>
+            <div class="kw-link">→ Urban heat island</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">urban heat island intensification</span><span class="vocab-pill">socioeconomic
+            displacement via gentrification</span><span class="vocab-pill">compact city paradigm</span><span
+            class="vocab-pill">centripetal vs centrifugal urban movement</span><span class="vocab-pill">sustainable
+            urban metabolism</span><span class="vocab-pill">adaptive infrastructure resilience</span><span
+            class="vocab-pill">ecological footprint of urbanization</span><span class="vocab-pill">digital-physical
+            urban convergence</span><span class="vocab-pill">mega-event legacy infrastructure</span><span
+            class="vocab-pill">transit-oriented development</span><span class="vocab-pill">informal settlement
+            upgrading</span><span class="vocab-pill">mixed-use zoning strategy</span><span class="vocab-pill">urban
+            carbon neutrality pathway</span><span class="vocab-pill">15-minute city mobility framework</span><span
+            class="vocab-pill">circular economy urban metabolism</span><span class="vocab-pill">SDG 11 inclusive cities
+            benchmark</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"Barcelona's Superblock model exemplifies the transition from car-centric urban
+            design to human-centric spatial governance — by reclaiming motor traffic space, it simultaneously addresses
+            UHI, air quality, and social cohesion."</div>
+          <div class="phrase-item">"The Paris Olympics' €1.4bn Seine restoration demonstrates how mega-events can
+            function as catalysts for environmental regeneration, converting political urgency into infrastructure
+            investment that outlasts the event itself."</div>
+          <div class="phrase-item">"Gentrification presents the central paradox of urban renewal: the very improvements
+            that elevate neighbourhood quality precipitate the displacement of the communities they were ostensibly
+            designed to benefit."</div>
+          <div class="phrase-item">"Singapore's ERP system operationalizes a fundamental economic principle — congestion
+            is a negative externality of private vehicle use, and dynamic pricing internalizes that cost, modifying
+            behaviour without prohibition."</div>
+          <div class="phrase-item">"The Cheonggyecheon restoration illustrates that urban resilience is achieved not
+            through technological addition but through ecological subtraction — removing a highway and restoring a river
+            reduced temperatures, restored biodiversity, and revitalised the local economy."</div>
+          <div class="phrase-item">"The circular economy reconceptualises waste as misallocated resource — Dell's
+            closed-loop plastics programme and HUL's Project Prithvi both demonstrate that the linear take-make-dispose
+            model is economically suboptimal, not merely environmentally damaging."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">UHI Problem → Solution Chain</div>
+            <div class="chain-flow">Tokyo dense concrete/asphalt<span class="arrow">→</span>Airflow blocked → heat
+              trapped<span class="arrow">→</span>UHI effect intensifies<span class="arrow">→</span>Energy demand rises
+              (cooling)<span class="arrow">→</span>Rooftop gardens + vertical greenery deployed<span
+                class="arrow">→</span>Singapore: underground district cooling (-40% electricity)<span
+                class="arrow">→</span>Temperatures reduced</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Mega-Event Regeneration Chain</div>
+            <div class="chain-flow">Paris Olympics 2024 trigger<span class="arrow">→</span>€1.4bn Seine restoration<span
+                class="arrow">→</span>Eco-materials construction<span class="arrow">→</span>Metro expansion + cycling
+              lanes<span class="arrow">→</span>Tourism + employment<span class="arrow">→</span>BUT: displacement fears +
+              "white elephant" risk + construction emissions → partial sustainability</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Traffic Congestion Solution Chain</div>
+            <div class="chain-flow">Rapid urbanization → road capacity exceeded<span class="arrow">→</span>Delhi: severe
+              congestion + pollution<span class="arrow">→</span>Singapore ERP: dynamic pricing → speed 15→25kmh<span
+                class="arrow">→</span>Barcelona Superblocks: motorized traffic restricted → cycling + walking → 700
+              deaths prevented/yr</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Circular Economy Value Chain</div>
+            <div class="chain-flow">Linear economy (take-make-dispose) → waste accumulates<span
+                class="arrow">→</span>Dell: recycled plastics → new devices (closed loop)<span class="arrow">→</span>HUL
+              Prithvi: 5,000t plastic → cement kiln fuel<span class="arrow">→</span>Godrej: wooden pallets →
+              furniture<span class="arrow">→</span>Raw material costs reduced + emissions cut → economic + environmental
+              value created</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SUPRANATIONAL ORGS ══ -->
+    <div class="unit-panel" id="unit-supra">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">UNMEER (2014)</div>
+            <div class="kw-def">First-ever UN emergency health mission — deployed for Ebola; model for WHO crisis
+              coordination</div>
+            <div class="kw-link">→ UN success / Ebola</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Green Climate Fund</div>
+            <div class="kw-def">UN channelled billions to developing countries for climate adaptation under Paris
+              Agreement</div>
+            <div class="kw-link">→ Paris Agreement / climate finance</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">European Coal &amp; Steel Community 1951</div>
+            <div class="kw-def">Post-WWII origin of EU — 6 nations control war industries jointly to prevent conflict
+            </div>
+            <div class="kw-link">→ EU origin / supranational evolution</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Maastricht Treaty 1993</div>
+            <div class="kw-def">Formally created the EU — shift from economic to political/social/environmental
+              supranational union</div>
+            <div class="kw-link">→ EU formation milestone</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Eurozone 20 nations</div>
+            <div class="kw-def">Shared currency (Euro) controlled by ECB — countries surrender independent monetary
+              policy</div>
+            <div class="kw-link">→ EU monetary union / sovereignty trade-off</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Brexit 2020</div>
+            <div class="kw-def">UK departure — exposed EU divisions over sovereignty, migration, bureaucracy;
+              euroscepticism</div>
+            <div class="kw-link">→ EU failure / limitation</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Russia-Ukraine energy dependence 2022</div>
+            <div class="kw-def">EU disagreement on sanctions/military support revealed energy vulnerability and
+              geopolitical disunity</div>
+            <div class="kw-link">→ EU failure / geopolitical crisis</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">EU Migration Crisis 2015</div>
+            <div class="kw-def">Member states could not agree on refugee burden-sharing — exposed limits of
+              supranational unity</div>
+            <div class="kw-link">→ EU bureaucratic failure</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">NATO Article 5</div>
+            <div class="kw-def">Collective defence — attack on one = attack on all; Russia's Ukraine invasion tests
+              credibility</div>
+            <div class="kw-link">→ NATO deterrence mechanism</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">NATO Kosovo 1999</div>
+            <div class="kw-def">Airstrikes stopped ethnic cleansing by Serbian forces — humanitarian intervention
+              without UN approval</div>
+            <div class="kw-link">→ NATO success case</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">NATO Afghanistan 2001-2021</div>
+            <div class="kw-def">Taliban overthrown but governance failed → 2021 withdrawal → Taliban resurgence →
+              post-conflict failure</div>
+            <div class="kw-link">→ NATO failure / poor post-conflict planning</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Libya intervention 2011</div>
+            <div class="kw-def">NATO overthrew Gaddafi but no governance plan → rival militias → civil war → strategic
+              failure</div>
+            <div class="kw-link">→ NATO failure / post-conflict gap</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Iran Nuclear Deal 2015</div>
+            <div class="kw-def">UN diplomatic success — P5+1 negotiations → diplomatic solution to nuclear proliferation
+              threat</div>
+            <div class="kw-link">→ UN political success</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">North Korea defying UN sanctions</div>
+            <div class="kw-def">Continued nuclear/missile development despite UNSC resolutions — UN enforcement void
+              exposed</div>
+            <div class="kw-link">→ UN failure / enforcement limitation</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Erasmus+ programme</div>
+            <div class="kw-def">EU educational exchange — free movement enabling cross-border study; European identity
+              building</div>
+            <div class="kw-link">→ EU soft power / freedom of movement</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">pooled sovereignty mechanism</span><span class="vocab-pill">collective security
+            architecture</span><span class="vocab-pill">supranational binding authority</span><span
+            class="vocab-pill">democratic deficit in supranational bodies</span><span class="vocab-pill">enforcement
+            capacity gap</span><span class="vocab-pill">multilateral consensus-building</span><span
+            class="vocab-pill">Euroscepticism and sovereignty reclamation</span><span class="vocab-pill">post-conflict
+            institutional vacuum</span><span class="vocab-pill">burden-sharing asymmetry</span><span
+            class="vocab-pill">veto-power geopolitical paralysis</span><span class="vocab-pill">humanitarian
+            intervention legitimacy</span><span class="vocab-pill">normative power projection</span><span
+            class="vocab-pill">economic interdependence as deterrent</span><span class="vocab-pill">climate governance
+            multilateralism</span><span class="vocab-pill">intergovernmental vs supranational distinction</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"The UN's Ebola response demonstrates that multilateral coordination, when
+            undistorted by geopolitical rivalry, can mobilise resources and expertise with a speed and scale no
+            individual state could match."</div>
+          <div class="phrase-item">"The Syrian Civil War exposes a structural paradox at the heart of the UN's
+            collective security architecture: the very P5 veto mechanism designed to prevent superpower conflict now
+            enables it to shield state violence from accountability."</div>
+          <div class="phrase-item">"Brexit encapsulates the fundamental tension between supranational integration and
+            democratic sovereignty — the UK's departure revealed that economic interdependence and political legitimacy
+            are not always compatible objectives."</div>
+          <div class="phrase-item">"NATO's Libya intervention illustrates the 'intervention-reconstruction gap':
+            military superiority in achieving regime change is not transferable to the political and institutional
+            complexity of post-conflict state-building."</div>
+          <div class="phrase-item">"The EU's response to the 2022 Russia-Ukraine crisis revealed that economic
+            interdependence — particularly energy dependency — can constrain supranational political solidarity
+            precisely when it is most needed."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">UN Success Chain: Ebola</div>
+            <div class="chain-flow">Ebola overwhelms Guinea/Liberia/Sierra Leone<span class="arrow">→</span>WHO
+              emergency response<span class="arrow">→</span>UNMEER deployed (first ever)<span class="arrow">→</span>WFP
+              logistics + UNICEF community engagement<span class="arrow">→</span>Contact tracing breaks
+              transmission<span class="arrow">→</span>Health systems stabilized<span class="arrow">→</span>Outbreak
+              contained → model established</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">EU Origin → Expansion → Crisis</div>
+            <div class="chain-flow">WWII devastation 1945<span class="arrow">→</span>ECSC 1951 (6 nations)<span
+                class="arrow">→</span>Treaty of Rome 1957<span class="arrow">→</span>Maastricht 1993 (EU formed)<span
+                class="arrow">→</span>Eurozone (monetary union)<span class="arrow">→</span>Migration crisis 2015
+              (disunity)<span class="arrow">→</span>Brexit 2020<span class="arrow">→</span>Russia-Ukraine energy
+              dependence exposed</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">NATO Deterrence vs Post-Conflict Failure</div>
+            <div class="chain-flow">Kosovo 1999: ethnic cleansing → NATO airstrikes → conflict stopped (success)<span
+                class="arrow">→</span>Afghanistan 2001: Taliban removed (military success)<span class="arrow">→</span>20
+              years, no governance built<span class="arrow">→</span>2021 withdrawal → Taliban returns → post-conflict
+              planning failure exposed</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">UN Enforcement Gap Chain</div>
+            <div class="chain-flow">North Korea nuclear tests<span class="arrow">→</span>UNSC resolutions passed<span
+                class="arrow">→</span>Sanctions imposed<span class="arrow">→</span>North Korea continues
+              development<span class="arrow">→</span>No enforcement mechanism<span class="arrow">→</span>UN authority
+              undermined → compliance depends on state willingness</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ INDUSTRIAL REVOLUTIONS ══ -->
+    <div class="unit-panel" id="unit-indrev">
+      <div class="section">
+        <div class="section-header"><span class="section-num">01</span><span class="section-title">Core trigger
+            keywords</span></div>
+        <div class="keyword-grid">
+          <div class="keyword-card">
+            <div class="kw-term">Cromford Mill (Arkwright)</div>
+            <div class="kw-def">First water-powered factory — cottage industry replaced; factory system
+              institutionalised</div>
+            <div class="kw-link">→ 1st IR factory system origin</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Spinning Jenny (Hargreaves 1764)</div>
+            <div class="kw-def">Multi-spindle thread production — mechanised spinning; first step from domestic to
+              factory</div>
+            <div class="kw-link">→ 1st IR textile innovation</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Enclosure Acts</div>
+            <div class="kw-def">Laws combining common land → large private farms → displaced agricultural workers →
+              urban migration</div>
+            <div class="kw-link">→ Why Britain industrialised first</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Stephenson's Rocket 1829</div>
+            <div class="kw-def">Pioneering steam locomotive → Liverpool-Manchester Railway 1830 → national trade network
+            </div>
+            <div class="kw-link">→ Railway revolution / 1st IR</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">1842 Children's Employment Commission</div>
+            <div class="kw-def">Government investigation exposing child labour horrors → Mines Act 1842 (banned women +
+              boys underground)</div>
+            <div class="kw-link">→ Labour reform / social impact</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Henry Cort puddling process 1784</div>
+            <div class="kw-def">Removed impurities from iron → strong wrought iron at scale → iron production from
+              12,000 to 2M tons</div>
+            <div class="kw-link">→ Iron industry / 1st IR</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Abraham Darby coke smelting</div>
+            <div class="kw-def">Coke replaced charcoal in blast furnaces → cheaper, higher-volume iron production</div>
+            <div class="kw-link">→ Iron + coal connection</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Robert Owen New Lanark</div>
+            <div class="kw-def">Textile manufacturer who introduced education, fair wages, better housing — early
+              socialist reform</div>
+            <div class="kw-link">→ Industrial reform response</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Bessemer Process 1856</div>
+            <div class="kw-def">Mass-produced cheap steel → enabled skyscrapers, railways, shipbuilding at industrial
+              scale</div>
+            <div class="kw-link">→ 2nd IR steel revolution</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Ford Assembly Line 1913</div>
+            <div class="kw-def">Mass production standardisation → cars became affordable → suburbanisation enabled</div>
+            <div class="kw-link">→ 2nd IR mass production</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">World Wide Web (Berners-Lee 1991)</div>
+            <div class="kw-def">Global digital communication network → knowledge democratised → 3rd IR defining
+              invention</div>
+            <div class="kw-link">→ 3rd IR digital revolution</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">CRISPR-Cas9 (2012)</div>
+            <div class="kw-def">Gene editing technology → biotechnology leap → 4th IR biological-digital fusion</div>
+            <div class="kw-link">→ 4th IR biotechnology</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Waymo autonomous taxis 2020</div>
+            <div class="kw-def">Self-driving vehicles operationalised — AI decision-making in physical space → 4th IR
+              milestone</div>
+            <div class="kw-link">→ 4th IR AI + mobility</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">James Watt Steam Engine 1776</div>
+            <div class="kw-def">Converted heat to mechanical energy → factories no longer river-dependent → industrial
+              geography transformed</div>
+            <div class="kw-link">→ 1st IR energy breakthrough</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Women earning ⅓ of men's wages</div>
+            <div class="kw-def">Gender wage discrimination embedded in industrial system — employers exploited cheap
+              labour</div>
+            <div class="kw-link">→ 1st IR social inequality</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Sputnik 1957 → Space Race</div>
+            <div class="kw-def">Soviet satellite → US NASA response → tech competition reshaping national prestige (3rd
+              IR bridge)</div>
+            <div class="kw-link">→ 3rd IR origins / Cold War tech</div>
+          </div>
+          <div class="keyword-card">
+            <div class="kw-term">Cobots (collaborative robots)</div>
+            <div class="kw-def">4th IR robots working alongside humans — not replacing but augmenting human workers
+            </div>
+            <div class="kw-link">→ 4th IR robotics</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">02</span><span class="section-title">Advanced conceptual
+            vocabulary</span></div>
+        <div class="vocab-list">
+          <span class="vocab-pill">domestic-to-factory system transition</span><span class="vocab-pill">labour-saving
+            technology displacement</span><span class="vocab-pill">technological path dependency</span><span
+            class="vocab-pill">industrial capitalism accumulation</span><span
+            class="vocab-pill">digital-physical-biological convergence</span><span class="vocab-pill">creative
+            destruction cycle</span><span class="vocab-pill">mass production standardization</span><span
+            class="vocab-pill">platform economy emergence</span><span class="vocab-pill">cyber-physical systems
+            integration</span><span class="vocab-pill">techno-economic paradigm shift</span><span
+            class="vocab-pill">proletarianization of labour</span><span class="vocab-pill">wage-labour commodity
+            relationship</span><span class="vocab-pill">algorithmic decision-making governance</span><span
+            class="vocab-pill">gig economy precarity</span><span class="vocab-pill">AI-driven autonomous
+            systems</span><span class="vocab-pill">e-waste proliferation externality</span>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">04</span><span class="section-title">High-band phrase
+            bank</span></div>
+        <div class="phrase-list">
+          <div class="phrase-item">"The Enclosure Acts function as a crucial but underappreciated precondition for
+            industrialisation — by dispossessing agricultural workers from common land, they generated a mobile
+            proletariat available for factory employment."</div>
+          <div class="phrase-item">"Coal occupies a paradoxical position in the Industrial Revolution: it was
+            simultaneously its energy foundation and its most devastating environmental legacy, a tension that continues
+            to define the global energy transition today."</div>
+          <div class="phrase-item">"The progression from Hargreaves' Spinning Jenny to CRISPR-Cas9 reveals a consistent
+            pattern across industrial revolutions: technological innovation accelerates productive capacity while
+            simultaneously disrupting labour markets and social structures."</div>
+          <div class="phrase-item">"Ford's assembly line did not merely transform production — it fundamentally
+            restructured the relationship between labour and capital, converting skilled craftsmen into interchangeable
+            machine operators within a system of wage dependency."</div>
+          <div class="phrase-item">"The Fourth Industrial Revolution marks a qualitative departure from its
+            predecessors: where previous revolutions augmented human physical and cognitive capacity, the AI revolution
+            creates systems capable of autonomous decision-making — raising ethical questions no earlier revolution had
+            to confront."</div>
+          <div class="phrase-item">"The digital divide of the Third Industrial Revolution is reproduced and amplified in
+            the Fourth — AI systems and platform economies generate enormous wealth while concentrating it among those
+            who own the algorithms, not those who generate the data."</div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-header"><span class="section-num">05</span><span class="section-title">Case study link
+            chains</span></div>
+        <div class="chain-list">
+          <div class="chain-item">
+            <div class="chain-label">Why Britain First Chain</div>
+            <div class="chain-flow">Agricultural Revolution + Enclosure Acts<span class="arrow">→</span>Displaced rural
+              workers → urban migration<span class="arrow">→</span>Coal + iron access<span class="arrow">→</span>Empire
+              provides raw materials + markets<span class="arrow">→</span>Capital investors (Arkwright)<span
+                class="arrow">→</span>Watt steam engine (1776)<span class="arrow">→</span>Factory system emerges → 1st
+              IR</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Coal-Iron-Railway Interdependence</div>
+            <div class="chain-flow">Coal powers steam engines<span class="arrow">→</span>Steam engines pump water from
+              mines → more coal extracted<span class="arrow">→</span>Abraham Darby: coke smelts iron cheaply<span
+                class="arrow">→</span>Iron builds railways<span class="arrow">→</span>Railways transport coal to
+              factories<span class="arrow">→</span>Factories produce more goods → circular industrial intensification
+            </div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Social Cost Chain (1st IR)</div>
+            <div class="chain-flow">Factory system centralises labour<span class="arrow">→</span>Children employed
+              (mines + factories)<span class="arrow">→</span>1842 Commission exposes conditions<span
+                class="arrow">→</span>Mines Act 1842<span class="arrow">→</span>Factory Acts limit hours<span
+                class="arrow">→</span>Robert Owen model of reform<span class="arrow">→</span>Early labour movement →
+              modern workers' rights</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">4 Industrial Revolutions Comparison</div>
+            <div class="chain-flow">1st: Steam + mechanisation (physical labour replaced)<span
+                class="arrow">→</span>2nd: Electricity + steel + mass production (scale achieved)<span
+                class="arrow">→</span>3rd: Computers + internet (information digitised)<span class="arrow">→</span>4th:
+              AI + biotech + IoT (decision-making automated)<span class="arrow">→</span>Each revolution: productivity
+              gains + inequality + new ethical challenges</div>
+          </div>
+          <div class="chain-item">
+            <div class="chain-label">Technology → Contemporary Legacy</div>
+            <div class="chain-flow">Steam engine (Watt 1776)<span class="arrow">→</span>Steam turbines in
+              coal/nuclear/geothermal plants today<span class="arrow">→</span>Spinning Jenny (1764)<span
+                class="arrow">→</span>Automated looms → fast fashion industry<span class="arrow">→</span>Telegraph
+              (Morse 1837)<span class="arrow">→</span>Internet → IoT → real-time global communication<span
+                class="arrow">→</span>Each invention: ancestor of modern system</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showUnit(id, btn) {
+      document.querySelectorAll('.unit-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('unit-' + id).classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    function filterContent(query) {
+      const q = query.toLowerCase().trim();
+      if (!q) {
+        document.querySelectorAll('.keyword-card, .phrase-item, .chain-item, .vocab-pill').forEach(el => {
+          el.classList.remove('kw-hidden');
+        });
+        return;
+      }
+      ['keyword-card', 'phrase-item', 'chain-item', 'vocab-pill'].forEach(cls => {
+        document.querySelectorAll('.' + cls).forEach(el => {
+          el.classList.toggle('kw-hidden', !el.textContent.toLowerCase().includes(q));
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>
